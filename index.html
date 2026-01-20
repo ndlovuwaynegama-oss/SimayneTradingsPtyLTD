@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simayne Trading (Pty) Ltd - Complete Business Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Simayne Trading ZA - Creative design, digital services, and retail products for growing township businesses.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== CSS RESET & BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      background: var(--bg-color);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ===== CSS VARIABLES FOR THEME ===== */
+    :root {
+      /* Light Theme Variables */
+      --bg-color-light: #f8f9fa;
+      --text-color-light: #212529;
+      --nav-bg-light: rgba(255, 255, 255, 0.95);
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --primary-light: #4361ee;
+      --secondary-light: #3a0ca3;
+      --accent-light: #4cc9f0;
+      
+      /* Dark Theme Variables */
+      --bg-color-dark: #0f172a;
+      --text-color-dark: #f1f5f9;
+      --nav-bg-dark: rgba(15, 23, 42, 0.95);
+      --card-bg-dark: rgba(30, 41, 59, 0.8);
+      --primary-dark: #60a5fa;
+      --secondary-dark: #3b82f6;
+      --accent-dark: #38bdf8;
+    }
+    
+    /* Default to Dark Theme */
+    body {
+      --bg-color: var(--bg-color-dark);
+      --text-color: var(--text-color-dark);
+      --nav-bg: var(--nav-bg-dark);
+      --card-bg: var(--card-bg-dark);
+      --primary: var(--primary-dark);
+      --secondary: var(--secondary-dark);
+      --accent: var(--accent-dark);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    
+    body.light-theme {
+      --bg-color: var(--bg-color-light);
+      --text-color: var(--text-color-light);
+      --nav-bg: var(--nav-bg-light);
+      --card-bg: var(--card-bg-light);
+      --primary: var(--primary-light);
+      --secondary: var(--secondary-light);
+      --accent: var(--accent-light);
+    }
+
+    /* ===== SPACE BACKGROUND ===== */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo i { font-size: 20px; }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      cursor: pointer;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: rgba(255, 255, 255, 0.1);
+      text-decoration: none;
+    }
+
+    .theme-toggle, .login-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover, .login-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-toggle:hover { background: rgba(255, 255, 255, 0.1); }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      min-height: 100vh;
+      padding: 100px 20px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    section.active {
+      display: block;
+    }
+
+    /* ===== SECTION HEADINGS ===== */
+    h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 25px;
+      color: var(--primary);
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: var(--accent);
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      opacity: 0.9;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    /* ===== HOME SECTION ===== */
+    .home-content {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .home-content p {
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .stat {
+      padding: 25px 20px;
+      border-radius: 15px;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .stat:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat i {
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: var(--accent);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 32px;
+      margin: 10px 0;
+      color: var(--primary);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-small {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    /* ===== PRICE LIST SECTION ===== */
+    .price-categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .price-category-btn {
+      padding: 10px 20px;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .price-category-btn.active, .price-category-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .price-list-container {
+      max-height: 600px;
+      overflow-y: auto;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .price-category {
+      display: none;
+      margin-bottom: 40px;
+    }
+
+    .price-category.active {
+      display: block;
+    }
+
+    .price-category h3 {
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .price-item:last-child {
+      border-bottom: none;
+    }
+
+    .price-item-name {
+      font-weight: 500;
+    }
+
+    .price-item-price {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .copy-price-btn {
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    /* ===== SHOP SECTION ===== */
+    .category-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .category-btn {
+      padding: 10px 24px;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .category-btn.active, .category-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 48px;
+    }
+
+    .product-info {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-info h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .product-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 10px 0;
+    }
+
+    .product-description {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .add-to-cart {
+      padding: 10px 15px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+
+    .add-to-cart:hover {
+      background: var(--secondary);
+    }
+
+    /* ===== LIVE SECTION ===== */
+    .live-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .live-stream {
+      background: var(--card-bg);
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .live-header {
+      padding: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .live-header h3 {
+      color: white;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .live-status {
+      background: #ef4444;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .live-status.live {
+      background: #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    .live-player {
+      width: 100%;
+      height: 300px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .live-schedule {
+      padding: 20px;
+    }
+
+    .schedule-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== LOGIN MODAL ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: 15px;
+      width: 90%;
+      max-width: 450px;
+      padding: 30px;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .form-title {
+      margin-bottom: 25px;
+      text-align: center;
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-color);
+      font-size: 16px;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .form-footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .form-switch {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .form-switch a {
+      color: var(--accent);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .form-switch a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 30px 20px 20px;
+      background: var(--nav-bg);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .footer-column h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .footer-column p, .footer-column a {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+      display: block;
+      text-decoration: none;
+      color: var(--text-color);
+    }
+
+    .footer-column a:hover {
+      color: var(--accent);
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .social-icons a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      font-size: 14px;
+      opacity: 0.7;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== NEW TWITCH INTEGRATION ===== */
+    .twitch-embed-container {
+      width: 100%;
+      height: 300px;
+      background: #000;
+      position: relative;
+    }
+
+    .twitch-embed-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .twitch-offline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .twitch-offline i {
+      font-size: 60px;
+      margin-bottom: 20px;
+      color: #9146FF;
+    }
+
+    /* ===== MAP INTEGRATION ===== */
+    .map-container {
+      width: 100%;
+      height: 300px;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-top: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== MOBILE RESPONSIVENESS ===== */
+    @media (max-width: 992px) {
+      h1 { font-size: 36px; }
+      h2 { font-size: 28px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 15px 20px; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--nav-bg);
+        flex-direction: column;
+        padding: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        gap: 10px;
+      }
+      .nav-links.active { display: flex; }
+      .nav-btn {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 12px 20px;
+      }
+      .menu-toggle { display: flex; }
+      .stats { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .live-container { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 30px; }
+      h2 { font-size: 24px; }
+      main { padding: 90px 15px 70px; }
+      .section-subtitle { font-size: 16px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .category-filters { gap: 8px; }
+      .category-btn { padding: 8px 16px; font-size: 14px; }
+    }
+
+    /* ===== UTILITY CLASSES ===== */
+    .text-center { text-align: center; }
+    .mt-20 { margin-top: 20px; }
+    .mt-30 { margin-top: 30px; }
+    .mb-20 { margin-bottom: 20px; }
+    .mb-30 { margin-bottom: 30px; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+
+<body>
+  <!-- Space Background Canvas -->
+  <canvas id="space"></canvas>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="logo">
+      <i class="fas fa-rocket"></i>
+      <span>Simayne Trading</span>
+    </div>
+    
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="nav-links" id="navLinks">
+      <button class="nav-btn active" onclick="showSection('home')">
+        <i class="fas fa-home"></i> Home
+      </button>
+      <button class="nav-btn" onclick="showSection('services')">
+        <i class="fas fa-cogs"></i> Services
+      </button>
+      <button class="nav-btn" onclick="showSection('pricelist')">
+        <i class="fas fa-tags"></i> Price List
+      </button>
+      <button class="nav-btn" onclick="showSection('shop')">
+        <i class="fas fa-store"></i> Shop
+      </button>
+      <button class="nav-btn" onclick="showSection('live')">
+        <i class="fas fa-broadcast-tower"></i> Live
+      </button>
+      <button class="nav-btn" onclick="showSection('track')">
+        <i class="fas fa-shipping-fast"></i> Track Order
+      </button>
+      <button class="nav-btn" onclick="showSection('about')">
+        <i class="fas fa-info-circle"></i> About
+      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="login-toggle" id="loginToggle" aria-label="Login">
+        <i class="fas fa-user"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Home Section -->
+    <section id="home" class="active">
+      <div class="home-content">
+        <h1>We Source It. We Brand It. We Deliver It.</h1>
+        <p>
+          Simayne Trading (Pty) Ltd is a multi-service procurement and branding company
+          focused on fast solutions, quality supply, and practical execution. We bridge the gap 
+          between suppliers and businesses across South Africa.
+        </p>
+        
+        <div class="stats">
+          <div class="stat">
+            <i class="fas fa-box-open"></i>
+            <strong>1,240+</strong>
+            <div>Items Supplied</div>
+          </div>
+          <div class="stat">
+            <i class="fas fa-building"></i>
+            <strong>42</strong>
+            <div>Businesses Served</div>
+          </div>
+          <div class="stat">
+            <i class="fas fa-paint-brush"></i>
+            <strong>28</strong>
+            <div>Branding Projects</div>
+          </div>
+          <div class="stat">
+            <i class="fas fa-clock"></i>
+            <strong>2h</strong>
+            <div>Avg. Response Time</div>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <a class="btn" href="https://wa.me/27671936481" target="_blank">
+            <i class="fab fa-whatsapp"></i> Request Quote on WhatsApp
+          </a>
+          <button class="btn btn-outline mt-20" onclick="showSection('shop')">
+            <i class="fas fa-shopping-cart"></i> Browse Products
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+      <h2>Our Services</h2>
+      <p class="section-subtitle">
+        Based on our in-house equipment and sourcing network, we offer comprehensive solutions:
+      </p>
+      
+      <div class="stats">
+        <div class="stat">
+          <i class="fas fa-print"></i>
+          <h3>Print & Design</h3>
+          <p>Custom mugs, glassware, vinyl stickers, labels, decals, packaging & product branding</p>
+        </div>
+        <div class="stat">
+          <i class="fas fa-tshirt"></i>
+          <h3>Heat Press</h3>
+          <p>Mugs, caps, t-shirts, plates, phone cases, coasters, mousepads, keyholders</p>
+        </div>
+        <div class="stat">
+          <i class="fas fa-cut"></i>
+          <h3>Vinyl Cutting</h3>
+          <p>T-shirt, hoodie & hat vinyl prints, custom stickers, invitation cards, cake toppers</p>
+        </div>
+        <div class="stat">
+          <i class="fas fa-laptop-code"></i>
+          <h3>Digital Solutions</h3>
+          <p>Website design, online shop setup, domain & hosting assistance, graphic design</p>
+        </div>
+      </div>
+      
+      <div class="text-center">
+        <button class="btn" onclick="showSection('pricelist')">
+          <i class="fas fa-tags"></i> View Price List
+        </button>
+      </div>
+    </section>
+
+    <!-- Price List Section -->
+    <section id="pricelist">
+      <h2>Price List 2025</h2>
+      <p class="section-subtitle">Complete pricing for all our services. Copy to WhatsApp or Facebook.</p>
+      
+      <div class="price-categories" id="priceCategories"></div>
+      
+      <div class="price-list-container" id="priceListContainer">
+        <!-- Price categories will be dynamically loaded here -->
+      </div>
+      
+      <div class="text-center">
+        <button class="btn copy-price-btn" onclick="copyPriceList()">
+          <i class="fas fa-copy"></i> Copy Entire Price List
+        </button>
+      </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop">
+      <h2>Shop Our Products</h2>
+      <p class="section-subtitle">Premium attars, perfumes, lotions, roll-ons, and engine cleaners.</p>
+      
+      <div class="category-filters" id="categoryFilters">
+        <!-- Category buttons will be dynamically loaded here -->
+      </div>
+      
+      <div class="products-grid" id="productsGrid">
+        <!-- Products will be dynamically loaded here -->
+      </div>
+      
+      <div class="text-center">
+        <button class="btn" onclick="showSection('pricelist')">
+          <i class="fas fa-tags"></i> View Service Prices
+        </button>
+        <a class="btn btn-outline mt-20" href="https://wa.me/27671936481" target="_blank">
+          <i class="fab fa-whatsapp"></i> Order on WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <!-- Live Section -->
+    <section id="live">
+      <h2>Live Broadcasts</h2>
+      <p class="section-subtitle">Watch our live streams and client broadcasts across multiple platforms.</p>
+      
+      <div class="live-container">
+        <div class="live-stream">
+          <div class="live-header">
+            <h3><i class="fab fa-twitch"></i> Twitch Gaming</h3>
+            <div class="live-status" id="twitchStatus">Offline</div>
+          </div>
+          <div class="live-player">
+            <div class="twitch-embed-container" id="twitchEmbed">
+              <div class="twitch-offline">
+                <i class="fab fa-twitch"></i>
+                <h4>Wayne1606 is currently offline</h4>
+                <p>Follow on Twitch to get notified when live!</p>
+                <button class="btn btn-small mt-20" onclick="openTwitchChannel()">
+                  <i class="fab fa-twitch"></i> Follow on Twitch
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="live-schedule">
+            <h4>Stream Schedule</h4>
+            <div class="schedule-item">
+              <span>Monday - Friday</span>
+              <span>7:00 PM - 11:00 PM</span>
+            </div>
+            <div class="schedule-item">
+              <span>Saturday</span>
+              <span>2:00 PM - Late</span>
+            </div>
+            <button class="btn btn-small mt-20" onclick="openTwitchChannel()">
+              <i class="fab fa-twitch"></i> Visit Twitch Channel
+            </button>
+          </div>
+        </div>
+        
+        <div class="live-stream">
+          <div class="live-header">
+            <h3><i class="fab fa-facebook"></i> Simayne Vlog</h3>
+            <div class="live-status" id="facebookStatus">Offline</div>
+          </div>
+          <div class="live-player" id="facebookPlayer">
+            <i class="fas fa-satellite-dish"></i>
+            <span style="margin-left: 10px;">Stream starts soon</span>
+          </div>
+          <div class="live-schedule">
+            <h4>Broadcast Schedule</h4>
+            <div class="schedule-item">
+              <span>Fridays</span>
+              <span>7:00 PM</span>
+            </div>
+            <div class="schedule-item">
+              <span>Sundays</span>
+              <span>3:00 PM</span>
+            </div>
+            <button class="btn btn-small mt-20" onclick="openFacebookPage()">
+              <i class="fab fa-facebook"></i> Visit Facebook
+            </button>
+          </div>
+        </div>
+        
+        <div class="live-stream">
+          <div class="live-header">
+            <h3><i class="fas fa-globe"></i> Kasilyf Style</h3>
+            <div class="live-status" id="kasilyfStatus">Online</div>
+          </div>
+          <div class="live-player">
+            <iframe 
+              src="https://kasilyfstyle.com" 
+              style="width:100%; height:100%; border:none;"
+              title="Kasilyf Style Website"
+              id="kasilyfIframe">
+            </iframe>
+          </div>
+          <div class="live-schedule">
+            <h4>Website Features</h4>
+            <div class="schedule-item">
+              <span>Live Updates</span>
+              <span>Continuous</span>
+            </div>
+            <div class="schedule-item">
+              <span>Latest Designs</span>
+              <span>Weekly</span>
+            </div>
+            <button class="btn btn-small mt-20" onclick="openKasilyfStyle()">
+              <i class="fas fa-external-link-alt"></i> Visit Website
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Track Order Section -->
+    <section id="track">
+      <h2>Track Your Order</h2>
+      <p class="section-subtitle">Enter your Order ID below to check real-time status</p>
+      
+      <div style="max-width: 500px; margin: 0 auto;">
+        <div class="form-group">
+          <input type="text" id="orderId" class="form-control" placeholder="SIM-12345" maxlength="20">
+        </div>
+        
+        <button class="btn" onclick="trackOrder()" style="width: 100%;">
+          <i class="fas fa-search"></i> Track Order
+        </button>
+        
+        <div id="trackingResult" class="mt-30" style="display: none;">
+          <div style="background: var(--card-bg); padding: 25px; border-radius: 15px;">
+            <h3>Order Status: <span id="orderStatus" class="status" style="background: #3b82f6; color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px;">Processing</span></h3>
+            <div class="price-item">
+              <span class="price-item-name">Order ID:</span>
+              <span class="price-item-price" id="resultId">SIM-12345</span>
+            </div>
+            <div class="price-item">
+              <span class="price-item-name">Item:</span>
+              <span id="orderItem">Branded Mugs (50 units)</span>
+            </div>
+            <div class="price-item">
+              <span class="price-item-name">Last Update:</span>
+              <span id="orderUpdate">2024-03-15 14:30</span>
+            </div>
+            <div class="price-item">
+              <span class="price-item-name">Estimated Delivery:</span>
+              <span id="orderDelivery">2024-03-18</span>
+            </div>
+            <div class="price-item">
+              <span class="price-item-name">Tracking Number:</span>
+              <span id="orderTracking">SAX123456789</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <h2>About Simayne Trading</h2>
+      <p class="section-subtitle">
+        South Africa–based entrepreneurial venture offering creative design, digital solutions, and retail products.
+      </p>
+      
+      <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+        <div class="stat mb-30">
+          <h3>Our Mission</h3>
+          <p>To empower businesses through reliable sourcing and impactful branding. We focus on affordable pricing, resale opportunities, and value-driven solutions for informal traders, startups, and township businesses.</p>
+        </div>
+        
+        <div class="stat mb-30">
+          <h3>What We Do</h3>
+          <p>Simayne Trading ZA blends design, digital hustle, and high-demand products helping kasi businesses look professional and make money. We specialize in:</p>
+          <ul style="padding-left: 20px; margin-top: 15px;">
+            <li>Branding and visual design (logos, posters, brochures)</li>
+            <li>Website development and digital solutions</li>
+            <li>Supply of high-demand products (engine cleaners, fragrances, etc.)</li>
+            <li>Heat press and vinyl cutting services</li>
+            <li>Custom printing and labeling</li>
+          </ul>
+        </div>
+        
+        <div class="stat">
+          <h3>Contact Information</h3>
+          <div class="price-item">
+            <span class="price-item-name"><i class="fas fa-phone"></i> Phone:</span>
+            <span>067 193 6481</span>
+          </div>
+          <div class="price-item">
+            <span class="price-item-name"><i class="fas fa-envelope"></i> Email:</span>
+            <span>info@simayne.co.za</span>
+          </div>
+          <div class="price-item">
+            <span class="price-item-name"><i class="fab fa-whatsapp"></i> WhatsApp:</span>
+            <span>067 193 6481</span>
+          </div>
+          <div class="price-item">
+            <span class="price-item-name"><i class="fas fa-map-marker-alt"></i> Address:</span>
+            <span>11 Albuca Rd, Blue Downs, Cape Town, 7100</span>
+          </div>
+        </div>
+        
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3311.133693530479!2d18.689392!3d-33.902896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc5c4b6b3e3b2f%3A0x9a9b3d3b3d3b3d3b!2s11%20Albuca%20Rd%2C%20Blue%20Downs%2C%20Cape%20Town%2C%207100!5e0!3m2!1sen!2sza!4v1648456789012!5m2!1sen!2sza" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+      
+      <div class="text-center mt-30">
+        <a class="btn" href="https://wa.me/27671936481" target="_blank">
+          <i class="fab fa-whatsapp"></i> Contact Us Now
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Login/Register Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <button class="close-modal" id="closeModal">&times;</button>
+      <h2 class="form-title" id="formTitle">Login to Your Account</h2>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-control" placeholder="you@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="Your password" required>
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn" style="width: 100%;">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </div>
+        
+        <div class="form-footer">
+          <a href="#">Forgot your password?</a>
+        </div>
+      </form>
+      
+      <form id="registerForm" class="hidden">
+        <div class="form-group">
+          <label for="regName">Full Name</label>
+          <input type="text" id="regName" class="form-control" placeholder="John Doe" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" class="form-control" placeholder="you@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="regPhone">Phone Number</label>
+          <input type="tel" id="regPhone" class="form-control" placeholder="+27 XXX XXX XXXX" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" class="form-control" placeholder="Create a password" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="regConfirm">Confirm Password</label>
+          <input type="password" id="regConfirm" class="form-control" placeholder="Confirm password" required>
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn" style="width: 100%;">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+        </div>
+      </form>
+      
+      <div class="form-switch">
+        <span id="switchText">Don't have an account?</span>
+        <a id="switchForm">Register here</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Simayne Trading</h3>
+        <p>We Source It. We Brand It. We Deliver It. A multi-service procurement and branding company focused on fast solutions and practical execution.</p>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/profile.php?id=61583496611096" title="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/27671936481" title="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.twitch.tv/wayne1606" title="Twitch" target="_blank"><i class="fab fa-twitch"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <a onclick="showSection('home')">Home</a>
+        <a onclick="showSection('services')">Services</a>
+        <a onclick="showSection('pricelist')">Price List</a>
+        <a onclick="showSection('shop')">Shop</a>
+        <a onclick="showSection('live')">Live Broadcasts</a>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-phone"></i> 067 193 6481</p>
+        <p><i class="fas fa-envelope"></i> info@simayne.co.za</p>
+        <p><i class="fab fa-whatsapp"></i> WhatsApp Business</p>
+        <p><i class="fas fa-map-marker-alt"></i> 11 Albuca Rd, Blue Downs, Cape Town, 7100</p>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Business Hours</h3>
+        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+        <p>Saturday: 9:00 AM - 2:00 PM</p>
+        <p>Sunday: 10:00 AM - 1:00 PM</p>
+        <p>Emergency Orders: 24/7 via WhatsApp</p>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      © 2024 Simayne Trading (Pty) Ltd | Reg. No: 2023/XXXXXX/07 | All Rights Reserved
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // ===== DATA MODELS =====
+    // Price List Data (Updated with 2025 prices)
+    const priceListData = {
+      "graphic-design": {
+        title: "🎨 General Graphic Design",
+        items: [
+          { name: "Logo Design (Basic)", price: "R150 – R300" },
+          { name: "Logo Design (Premium)", price: "R350 – R600" },
+          { name: "Poster / Flyer / Event Design", price: "R100 – R200" },
+          { name: "Business Card Design (digital)", price: "R80" },
+          { name: "Menu Design", price: "R150 – R250" },
+          { name: "Social Media Ads", price: "R100 each" },
+          { name: "Vibe Code Creation", price: "R60 each" },
+          { name: "Brochure Design (2-page)", price: "R250 – R400" }
+        ]
+      },
+      "glass-printing": {
+        title: "🍷 Custom Glass Printing",
+        items: [
+          { name: "Custom Wine Glass", price: "R80" },
+          { name: "Champagne Glass", price: "R70" },
+          { name: "Beer Mug Print", price: "R90" },
+          { name: "Shot Glass Print", price: "R50" },
+          { name: "Full Set (6 glasses)", price: "R350 – R400" },
+          { name: "Tumbler Printing (500ml)", price: "R120" },
+          { name: "Travel Mug Printing", price: "R150" }
+        ]
+      },
+      "labeling": {
+        title: "🏷️ Labeling & Branding",
+        items: [
+          { name: "Bottle Labels (Wine/Spirits)", price: "From R5 each" },
+          { name: "Jar / Sauce Labels", price: "From R4 each" },
+          { name: "Product Stickers", price: "From R3 each" },
+          { name: "Packaging Branding", price: "R20 – R60 depending on size" },
+          { name: "Custom Thank-You Stickers", price: "R3 – R5 each" },
+          { name: "Barcode Labels (100 units)", price: "R150" }
+        ]
+      },
+      "heat-press": {
+        title: "🔥 8-in-1 Heat Press / Muggit Machine Services",
+        items: [
+          { name: "📍 Mugs - White Mug Printing", price: "R80 – R120" },
+          { name: "📍 Mugs - Magic Mug (Colour-Changing)", price: "R140" },
+          { name: "📍 Mugs - Travel Mug Printing", price: "R150" },
+          { name: "📍 Caps - Cap Heat Press Print", price: "R80 – R120" },
+          { name: "📍 T-Shirts - T-Shirt Print (Front Only)", price: "R120 – R150" },
+          { name: "📍 T-Shirts - T-Shirt Print (Front + Back)", price: "R180 – R220" },
+          { name: "📍 Plates - Ceramic Plate Printing", price: "R120 – R160" },
+          { name: "📍 Phone Cases - Custom Phone Case Print", price: "R120 – R180" },
+          { name: "📍 Heat Press Accessories - Coasters", price: "R20 – R40 each" },
+          { name: "📍 Heat Press Accessories - Mousepads", price: "R60 – R80" },
+          { name: "📍 Heat Press Accessories - Keyholders", price: "R30 – R50" }
+        ]
+      },
+      "vinyl-cutting": {
+        title: "✂️ Silhouette Cameo 4 Services",
+        items: [
+          { name: "Vinyl Cutting - T-shirt Vinyl Print", price: "R80 – R120" },
+          { name: "Vinyl Cutting - Hoodie Vinyl Print", price: "R150 – R220" },
+          { name: "Vinyl Cutting - Hat Vinyl Print", price: "R60 – R100" },
+          { name: "Custom Stickers - Die-cut Stickers", price: "R50 per A4 sheet" },
+          { name: "Custom Stickers - Logo Stickers", price: "R60 per A4 sheet" },
+          { name: "Paper Cutting - Invitation Cards (cut)", price: "R6 – R10 each" },
+          { name: "Paper Cutting - Cake Toppers", price: "R20 – R40 each" },
+          { name: "Paper Cutting - Custom Labels", price: "R5 – R15 each" },
+          { name: "Car Decals (Small)", price: "R80 – R150" }
+        ]
+      },
+      "printing": {
+        title: "🖨️ General Printing Services",
+        items: [
+          { name: "A4 Colour Printing", price: "R5 – R10" },
+          { name: "A4 Black & White", price: "R2 – R3" },
+          { name: "Lamination", price: "R10" },
+          { name: "Certificates", price: "R15 – R25" },
+          { name: "CV Printing", price: "R5 – R10" },
+          { name: "Photo Printing (6x4)", price: "R8" },
+          { name: "Photo Printing (A4)", price: "R25" }
+        ]
+      },
+      "website": {
+        title: "🌐 Website Design & Digital",
+        items: [
+          { name: "One-Page Website", price: "R300 – R500" },
+          { name: "Full Website (3–5 pages)", price: "R600 – R1,200" },
+          { name: "Online Shop Setup", price: "From R1,000" },
+          { name: "Domain + Hosting Setup Assistance", price: "R150" },
+          { name: "Social Media Setup & Branding", price: "R250" },
+          { name: "Google Business Profile Setup", price: "R200" }
+        ]
+      }
+    };
+
+    // Shop Products Data (Updated with 2025 inventory)
+    const shopProducts = {
+      "all": [
+        { id: 1, name: "Premium Arabian Attar", category: "attars", price: "R 180", description: "Long-lasting traditional attar with oud base", image: "🥮" },
+        { id: 2, name: "Rose Musk Attar", category: "attars", price: "R 150", description: "Floral and musk blend for daily wear", image: "🌹" },
+        { id: 3, name: "Oud Royal Attar", category: "attars", price: "R 220", description: "Luxury oud attar for special occasions", image: "👑" },
+        { id: 4, name: "Sandalwood Attar", category: "attars", price: "R 130", description: "Calming sandalwood fragrance", image: "🪵" },
+        { id: 5, name: "Citrus Fresh Attar", category: "attars", price: "R 140", description: "Zesty and refreshing citrus blend", image: "🍋" },
+        { id: 6, name: "Black Orchid Perfume", category: "perfumes", price: "R 250", description: "Elegant evening perfume for women", image: "🌺" },
+        { id: 7, name: "Ocean Breeze Perfume", category: "perfumes", price: "R 200", description: "Fresh aquatic scent for men", image: "🌊" },
+        { id: 8, name: "Vanilla Dream Perfume", category: "perfumes", price: "R 180", description: "Sweet vanilla fragrance", image: "🍦" },
+        { id: 9, name: "Leather & Tobacco Perfume", category: "perfumes", price: "R 280", description: "Bold masculine fragrance", image: "🧥" },
+        { id: 10, name: "Floral Bouquet Perfume", category: "perfumes", price: "R 220", description: "Mixed floral notes for daytime", image: "💐" },
+        { id: 11, name: "Shea Butter Lotion", category: "lotion", price: "R 90", description: "Moisturizing lotion for dry skin", image: "🧴" },
+        { id: 12, name: "Coconut Milk Lotion", category: "lotion", price: "R 85", description: "Light, nourishing coconut lotion", image: "🥥" },
+        { id: 13, name: "Vitamin E Lotion", category: "lotion", price: "R 95", description: "Anti-aging skin care lotion", image: "🌟" },
+        { id: 14, name: "Aloe Vera Lotion", category: "lotion", price: "R 80", description: "Soothing lotion for sensitive skin", image: "🌱" },
+        { id: 15, name: "Jasmine Lotion", category: "lotion", price: "R 100", description: "Floral scented body lotion", image: "🌼" },
+        { id: 16, name: "Rose Roll-On", category: "roll-ons", price: "R 120", description: "Concentrated rose fragrance", image: "🌹" },
+        { id: 17, name: "Lavender Roll-On", category: "roll-ons", price: "R 110", description: "Calming lavender essential oil", image: "🪻" },
+        { id: 18, name: "Peppermint Roll-On", category: "roll-ons", price: "R 100", description: "Invigorating peppermint oil", image: "🌿" },
+        { id: 19, name: "Frankincense Roll-On", category: "roll-ons", price: "R 150", description: "Spiritual and grounding scent", image: "🕯️" },
+        { id: 20, name: "Citrus Blend Roll-On", category: "roll-ons", price: "R 115", description: "Energizing citrus mix", image: "🍊" },
+        { id: 21, name: "Premium Engine Cleaner", category: "engine-cleaner", price: "R 200", description: "Heavy-duty engine degreaser", image: "🚗" },
+        { id: 22, name: "Engine Shampoo", category: "engine-cleaner", price: "R 150", description: "Foaming engine cleaner", image: "🧼" },
+        { id: 23, name: "Engine Degreaser Spray", category: "engine-cleaner", price: "R 180", description: "Spray-on engine cleaner", image: "💨" },
+        { id: 24, name: "Engine Bay Detailer", category: "engine-cleaner", price: "R 220", description: "Complete engine cleaning kit", image: "🧽" },
+        { id: 25, name: "Engine Protectant", category: "engine-cleaner", price: "R 250", description: "Cleaner with protective coating", image: "🛡️" }
+      ]
+    };
+
+    // ===== GLOBAL VARIABLES =====
+    let currentPriceCategory = "graphic-design";
+    let currentShopCategory = "all";
+    let isLoginForm = true;
+
+    // ===== DOM ELEMENT REFERENCES =====
+    const navLinks = document.getElementById('navLinks');
+    const menuToggle = document.getElementById('menuToggle');
+    const themeToggle = document.getElementById('themeToggle');
+    const loginToggle = document.getElementById('loginToggle');
+    const loginModal = document.getElementById('loginModal');
+    const closeModal = document.getElementById('closeModal');
+    const switchForm = document.getElementById('switchForm');
+    const switchText = document.getElementById('switchText');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const formTitle = document.getElementById('formTitle');
+
+    // ===== INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize price list
+      renderPriceCategories();
+      renderPriceCategory(currentPriceCategory);
+      
+      // Initialize shop
+      renderCategoryFilters();
+      renderProducts(currentShopCategory);
+      
+      // Initialize space background
+      initSpaceBackground();
+      
+      // Set up event listeners
+      setupEventListeners();
+      
+      // Check if user prefers light mode
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.body.classList.add('light-theme');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+      
+      // Check Twitch status on load
+      checkTwitchStatus();
+    });
+
+    // ===== RENDER FUNCTIONS =====
+    function renderPriceCategories() {
+      const container = document.getElementById('priceCategories');
+      const categories = Object.keys(priceListData);
+      
+      categories.forEach(category => {
+        const button = document.createElement('button');
+        button.className = 'price-category-btn';
+        button.textContent = priceListData[category].title.split(' ')[0]; // Get emoji + first word
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.price-category-btn').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          renderPriceCategory(category);
+          currentPriceCategory = category;
+        });
+        
+        if (category === currentPriceCategory) button.classList.add('active');
+        container.appendChild(button);
+      });
+    }
+
+    function renderPriceCategory(category) {
+      const container = document.getElementById('priceListContainer');
+      const data = priceListData[category];
+      
+      container.innerHTML = `
+        <div class="price-category active">
+          <h3>${data.title}</h3>
+          ${data.items.map(item => `
+            <div class="price-item">
+              <span class="price-item-name">${item.name}</span>
+              <span class="price-item-price">${item.price}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function renderCategoryFilters() {
+      const container = document.getElementById('categoryFilters');
+      const categories = [
+        { id: 'all', name: 'All Products', icon: '🛍️' },
+        { id: 'attars', name: 'Attars', icon: '🥮' },
+        { id: 'perfumes', name: 'Perfumes', icon: '🌺' },
+        { id: 'lotion', name: 'Lotion', icon: '🧴' },
+        { id: 'roll-ons', name: 'Roll-Ons', icon: '💧' },
+        { id: 'engine-cleaner', name: 'Engine Cleaner', icon: '🚗' }
+      ];
+      
+      categories.forEach(cat => {
+        const button = document.createElement('button');
+        button.className = 'category-btn';
+        if (cat.id === currentShopCategory) button.classList.add('active');
+        button.innerHTML = `${cat.icon} ${cat.name}`;
+        button.dataset.category = cat.id;
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          renderProducts(cat.id);
+          currentShopCategory = cat.id;
+        });
+        container.appendChild(button);
+      });
+    }
+
+    function renderProducts(category) {
+      const container = document.getElementById('productsGrid');
+      let products = shopProducts.all;
+      
+      if (category !== 'all') {
+        products = products.filter(product => product.category === category);
+      }
+      
+      container.innerHTML = products.map(product => `
+        <div class="product-card" data-category="${product.category}">
+          <div class="product-img">${product.image}</div>
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <div class="product-price">${product.price}</div>
+            <p class="product-description">${product.description}</p>
+            <button class="add-to-cart" onclick="addToCart(${product.id})">
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ===== SPACE BACKGROUND =====
+    function initSpaceBackground() {
+      const canvas = document.getElementById('space');
+      const ctx = canvas.getContext('2d');
+      let w, h, stars = [], mouse = {x:0,y:0};
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Create stars
+      for (let i=0;i<400;i++){
+        stars.push({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          z: Math.random(),
+          r: Math.random()*2 + 0.5
+        });
+      }
+
+      window.addEventListener('mousemove', e=>{
+        mouse.x = e.clientX / w - 0.5;
+        mouse.y = e.clientY / h - 0.5;
+      });
+
+      function animate(){
+        ctx.clearRect(0,0,w,h);
+
+        stars.forEach(s=>{
+          const speed = s.z * 0.6 + 0.2;
+          s.y += speed;
+          s.x += mouse.x * s.z * 2;
+
+          if (s.y > h) s.y = 0;
+          if (s.x > w) s.x = 0;
+          if (s.x < 0) s.x = w;
+
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r + s.z*2, 0, Math.PI*2);
+          ctx.fillStyle = document.body.classList.contains('light-theme') 
+            ? `rgba(0,0,0,${0.2 + s.z})` 
+            : `rgba(255,255,255,${0.3 + s.z})`;
+          ctx.fill();
+        });
+
+        /* rare shooting star */
+        if (Math.random() > 0.997){
+          let x = Math.random()*w;
+          let y = Math.random()*h/2;
+          ctx.strokeStyle = document.body.classList.contains('light-theme')
+            ? "rgba(0,0,0,0.6)"
+            : "rgba(180,220,255,0.8)";
+          ctx.beginPath();
+          ctx.moveTo(x,y);
+          ctx.lineTo(x+120,y+80);
+          ctx.stroke();
+        }
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // ===== EVENT LISTENERS SETUP =====
+    function setupEventListeners() {
+      // Mobile menu toggle
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+
+      // Theme toggle
+      themeToggle.addEventListener('click', toggleTheme);
+
+      // Login modal
+      loginToggle.addEventListener('click', () => {
+        loginModal.classList.add('active');
+      });
+
+      closeModal.addEventListener('click', () => {
+        loginModal.classList.remove('active');
+      });
+
+      // Close modal when clicking outside
+      loginModal.addEventListener('click', (e) => {
+        if (e.target === loginModal) {
+          loginModal.classList.remove('active');
+        }
+      });
+
+      // Switch between login/register forms
+      switchForm.addEventListener('click', toggleLoginRegister);
+
+      // Form submissions
+      loginForm.addEventListener('submit', handleLogin);
+      registerForm.addEventListener('submit', handleRegister);
+
+      // Close mobile menu when clicking a nav item
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+        });
+      });
+    }
+
+    // ===== CORE FUNCTIONS =====
+    function showSection(id) {
+      // Hide all sections
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      
+      // Show selected section
+      document.getElementById(id).classList.add('active');
+      
+      // Update active nav button
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.onclick && btn.onclick.toString().includes(`'${id}'`)) {
+          btn.classList.add('active');
+        }
+      });
+      
+      // Scroll to top of section
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+      
+      // Check Twitch status when Live section is shown
+      if (id === 'live') {
+        checkTwitchStatus();
+      }
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      const icon = themeToggle.querySelector('i');
+      
+      if (document.body.classList.contains('light-theme')) {
+        icon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'light');
+      } else {
+        icon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'dark');
+      }
+      
+      // Update space background
+      initSpaceBackground();
+    }
+
+    function toggleLoginRegister() {
+      isLoginForm = !isLoginForm;
+      
+      if (isLoginForm) {
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+        formTitle.textContent = 'Login to Your Account';
+        switchText.textContent = "Don't have an account?";
+        switchForm.textContent = 'Register here';
+      } else {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        formTitle.textContent = 'Create New Account';
+        switchText.textContent = 'Already have an account?';
+        switchForm.textContent = 'Login here';
+      }
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      // Simple validation
+      if (!email || !password) {
+        alert('Please fill in all fields');
+        return;
+      }
+      
+      // In a real app, you would send this to a backend
+      // For demo, we'll simulate a successful login
+      alert(`Welcome back! You're now logged in.`);
+      loginModal.classList.remove('active');
+      
+      // Clear form
+      document.getElementById('loginEmail').value = '';
+      document.getElementById('loginPassword').value = '';
+      
+      // Update login button to show logged in state
+      loginToggle.innerHTML = '<i class="fas fa-user-check"></i>';
+      loginToggle.title = 'Logged In';
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value;
+      const email = document.getElementById('regEmail').value;
+      const phone = document.getElementById('regPhone').value;
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regConfirm').value;
+      
+      // Validation
+      if (!name || !email || !phone || !password || !confirm) {
+        alert('Please fill in all fields');
+        return;
+      }
+      
+      if (password !== confirm) {
+        alert('Passwords do not match');
+        return;
+      }
+      
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long');
+        return;
+      }
+      
+      // In a real app, you would send this to a backend
+      // For demo, we'll simulate a successful registration
+      alert(`Account created successfully! Welcome to Simayne Trading, ${name}.`);
+      loginModal.classList.remove('active');
+      
+      // Clear form
+      document.getElementById('regName').value = '';
+      document.getElementById('regEmail').value = '';
+      document.getElementById('regPhone').value = '';
+      document.getElementById('regPassword').value = '';
+      document.getElementById('regConfirm').value = '';
+      
+      // Switch back to login form
+      toggleLoginRegister();
+    }
+
+    function trackOrder() {
+      const orderId = document.getElementById('orderId').value.trim().toUpperCase();
+      const resultDiv = document.getElementById('trackingResult');
+      
+      if (!orderId) {
+        alert('Please enter an Order ID');
+        return;
+      }
+      
+      // Demo data - in a real app, you would fetch this from a backend
+      const demoOrders = {
+        'SIM-12345': { 
+          status: 'shipped', 
+          statusText: 'Shipped',
+          item: 'Branded Mugs (50 units)', 
+          update: '2024-03-15 14:30',
+          delivery: '2024-03-18',
+          tracking: 'SAX123456789'
+        },
+        'SIM-67890': { 
+          status: 'processing', 
+          statusText: 'Processing',
+          item: 'Vinyl Stickers (200 pcs)', 
+          update: '2024-03-14 09:15',
+          delivery: '2024-03-20',
+          tracking: 'SAX987654321'
+        },
+        'SIM-11223': { 
+          status: 'delivered', 
+          statusText: 'Delivered',
+          item: 'Beverage Supply (100 cases)', 
+          update: '2024-03-10 11:45',
+          delivery: '2024-03-12',
+          tracking: 'SAX456789123'
+        }
+      };
+      
+      if (demoOrders[orderId]) {
+        const order = demoOrders[orderId];
+        
+        // Update status display
+        const statusSpan = document.getElementById('orderStatus');
+        statusSpan.textContent = order.statusText;
+        statusSpan.className = 'status';
+        
+        // Set status color
+        if (order.status === 'processing') {
+          statusSpan.style.backgroundColor = '#f59e0b';
+        } else if (order.status === 'shipped') {
+          statusSpan.style.backgroundColor = '#3b82f6';
+        } else if (order.status === 'delivered') {
+          statusSpan.style.backgroundColor = '#10b981';
+        }
+        
+        // Update other fields
+        document.getElementById('resultId').textContent = orderId;
+        document.getElementById('orderItem').textContent = order.item;
+        document.getElementById('orderUpdate').textContent = order.update;
+        document.getElementById('orderDelivery').textContent = order.delivery;
+        document.getElementById('orderTracking').textContent = order.tracking;
+        
+        resultDiv.style.display = 'block';
+        
+        // Scroll to results
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        alert('Order ID not found. Please check and try again.');
+        resultDiv.style.display = 'none';
+      }
+    }
+
+    function copyPriceList() {
+      let priceListText = "📌 SIMAYNE TRADINGS – PRICE LIST (2025)\n\n";
+      
+      // Add each category and its items
+      Object.values(priceListData).forEach(category => {
+        priceListText += `${category.title}\n`;
+        category.items.forEach(item => {
+          priceListText += `• ${item.name} — ${item.price}\n`;
+        });
+        priceListText += "\n";
+      });
+      
+      priceListText += "📍 Contact: 067 193 6481 | WhatsApp: 067 193 6481\n";
+      priceListText += "🌐 Facebook: https://www.facebook.com/profile.php?id=61583496611096\n";
+      priceListText += "🎮 Twitch: https://www.twitch.tv/wayne1606";
+      
+      // Copy to clipboard
+      navigator.clipboard.writeText(priceListText).then(() => {
+        alert('Price list copied to clipboard! You can now paste it to WhatsApp or Facebook.');
+      }).catch(err => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = priceListText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Price list copied to clipboard! You can now paste it to WhatsApp or Facebook.');
+      });
+    }
+
+    function addToCart(productId) {
+      // Find the product
+      const product = shopProducts.all.find(p => p.id === productId);
+      
+      // In a real app, you would add to a shopping cart
+      // For demo, we'll show a confirmation
+      alert(`Added ${product.name} to cart! Price: ${product.price}`);
+      
+      // You could implement a cart counter here
+    }
+
+    // ===== TWITCH INTEGRATION FUNCTIONS =====
+    function checkTwitchStatus() {
+      const twitchStatus = document.getElementById('twitchStatus');
+      const now = new Date();
+      const day = now.getDay(); // 0 = Sunday
+      const hour = now.getHours();
+      
+      // Simulate Twitch stream schedule: Mon-Fri 7-11 PM, Sat 2 PM-late
+      let isLive = false;
+      
+      if (day >= 1 && day <= 5) { // Monday to Friday
+        if (hour >= 19 && hour < 23) {
+          isLive = true;
+        }
+      } else if (day === 6) { // Saturday
+        if (hour >= 14) {
+          isLive = true;
+        }
+      }
+      
+      if (isLive) {
+        twitchStatus.textContent = 'LIVE NOW';
+        twitchStatus.className = 'live-status live';
+        // Load Twitch embed when live
+        loadTwitchEmbed();
+      } else {
+        twitchStatus.textContent = 'OFFLINE';
+        twitchStatus.className = 'live-status';
+      }
+    }
+    
+    function loadTwitchEmbed() {
+      const twitchEmbed = document.getElementById('twitchEmbed');
+      // For demo purposes, we'll simulate the embed
+      // In production, you would use the actual Twitch embed code
+      twitchEmbed.innerHTML = `
+        <div class="twitch-offline">
+          <i class="fab fa-twitch"></i>
+          <h4>Wayne1606 is currently LIVE!</h4>
+          <p>Join the stream on Twitch for gaming content</p>
+          <button class="btn btn-small mt-20" onclick="openTwitchChannel()">
+            <i class="fab fa-twitch"></i> Watch Live on Twitch
+          </button>
+        </div>
+      `;
+    }
+    
+    function openTwitchChannel() {
+      window.open('https://www.twitch.tv/wayne1606', '_blank');
+    }
+    
+    function openFacebookPage() {
+      window.open('https://www.facebook.com/profile.php?id=61583496611096', '_blank');
+    }
+    
+    function openKasilyfStyle() {
+      window.open('https://kasilyfstyle.com', '_blank');
+    }
+
+    // ===== SIMULATE LIVE STATUS UPDATES =====
+    // This is for demo purposes - in a real app you would check actual stream status
+    function updateLiveStatus() {
+      const now = new Date();
+      const day = now.getDay(); // 0 = Sunday, 5 = Friday
+      const hour = now.getHours();
+      
+      // Check Twitch status
+      checkTwitchStatus();
+      
+      // Simulate Facebook Live on Fridays at 7 PM
+      const facebookStatus = document.getElementById('facebookStatus');
+      const facebookPlayer = document.getElementById('facebookPlayer');
+      
+      if (day === 5 && hour >= 19 && hour < 21) {
+        facebookStatus.textContent = 'LIVE NOW';
+        facebookStatus.className = 'live-status live';
+        facebookPlayer.innerHTML = `
+          <div style="text-align: center;">
+            <i class="fas fa-broadcast-tower" style="font-size: 48px; margin-bottom: 15px;"></i>
+            <div>Facebook Live Stream Active</div>
+            <button class="btn btn-small mt-20" onclick="openFacebookPage()">
+              <i class="fab fa-facebook"></i> Join Live
+            </button>
+          </div>
+        `;
+      } else {
+        facebookStatus.textContent = 'OFFLINE';
+        facebookStatus.className = 'live-status';
+      }
+      
+      // Update every minute
+      setTimeout(updateLiveStatus, 60000);
+    }
+
+    // Start live status updates
+    updateLiveStatus();
+  </script>
+</body>
+</html>
